@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="전 세계 한인 업체 검색 - 국가, 도시, 업종별로 한인 업체를 쉽게 찾아보세요">
+    <title>한인 업체 검색 - 전 세계 한인 비즈니스 디렉토리</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #818CF8;
+            --accent: #EC4899;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            
+            --border: #E2E8F0;
+            --shadow-color: 226 232 240;
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-2xl: 2rem;
+            --radius-full: 9999px;
+            
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: "Pretendard Variable", "Inter", -apple-system, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        /* ========== Hero Header ========== */
+        .hero {
+            position: relative;
+            min-height: 55vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.1" /><stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0" /></linearGradient></defs><circle cx="100" cy="100" r="80" fill="url(%23grad)"/><circle cx="1000" cy="150" r="100" fill="url(%23grad)"/><circle cx="300" cy="400" r="60" fill="url(%23grad)"/><circle cx="900" cy="450" r="90" fill="url(%23grad)"/><circle cx="600" cy="200" r="70" fill="url(%23grad)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 900px;
+            animation: fadeInUp 1s var(--transition);
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-full);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: scaleIn 0.6s var(--transition) 0.2s both;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s var(--transition) 0.3s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s var(--transition) 0.4s both;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s var(--transition) 0.5s both;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+        }
+        
+        .hero-wave {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 5;
+        }
+        
+        /* ========== Container ========== */
+        .container {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            padding: 0 1.5rem 4rem;
+            position: relative;
+            z-index: 20;
+        }
+        
+        /* ========== Search Card ========== */
+        .search-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
+            box-shadow: 
+                0 0 0 1px rgba(0, 0, 0, 0.02),
+                0 16px 32px -8px rgba(var(--shadow-color), 0.12),
+                0 8px 16px -4px rgba(var(--shadow-color), 0.08);
+            margin-bottom: 2.5rem;
+            animation: scaleIn 0.6s var(--transition);
+        }
+        
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .search-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .search-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        
+        .search-input-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1.25rem 1.5rem 1.25rem 4rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 1.125rem;
+            font-family: inherit;
+            font-weight: 500;
+            background: var(--bg-secondary);
+            transition: all 0.3s var(--transition);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+        
+        .search-input-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            color: var(--text-tertiary);
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .filter-label {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .filter-select {
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 20px;
+            padding-right: 3rem;
+        }
+        
+        .filter-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: var(--bg-primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+        
+        .category-title {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .category-list {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-chip {
+            padding: 0.625rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s var(--transition);
+            user-select: none;
+        }
+        
+        .category-chip:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .category-chip[aria-checked="true"] {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .category-chip.all {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+        
+        .category-chip.all[aria-checked="false"] {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+        
+        /* ========== Results Bar ========== */
+        .results-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .results-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .results-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        
+        .results-text strong {
+            color: var(--primary);
+        }
+        
+        .filter-count {
+            padding: 0.375rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 700;
+            animation: scaleIn 0.3s var(--transition);
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            padding: 0.375rem;
+            border-radius: var(--radius-lg);
+        }
+        
+        .view-btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s var(--transition);
+        }
+        
+        .view-btn[aria-pressed="true"] {
+            background: var(--bg-primary);
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(var(--shadow-color), 0.1);
+        }
+        
+        /* ========== Card Grid ========== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+            perspective: 1500px;
+        }
+        
+        .business-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.4s var(--transition), 
+                        box-shadow 0.4s var(--transition), 
+                        border-color 0.4s var(--transition);
+            animation: fadeInUp 0.5s var(--transition) both;
+        }
+        
+        .business-card:hover {
+            transform: perspective(1500px) translateY(-10px) rotateX(3deg) scale(1.02);
+            box-shadow: 
+                0 0 0 1px rgba(99, 102, 241, 0.5),
+                0 30px 60px -15px rgba(var(--shadow-color), 0.2),
+                0 15px 30px -10px rgba(var(--shadow-color), 0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--transition);
+        }
+        
+        .business-card:hover .card-image {
+            transform: scale(1.08);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .badge-star {
+            color: #FFB800;
+            font-size: 1rem;
+        }
+        
+        .badge-rating {
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+        
+        .badge-reviews {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.375rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.875rem;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+        
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.875rem;
+        }
+        
+        .tag {
+            padding: 0.375rem 0.875rem;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-distance {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+            color: var(--primary);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .icon {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+        
+        .detail-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--primary);
+            margin-top: 3px;
+        }
+        
+        .detail-text {
+            flex: 1;
+        }
+        
+        /* ========================================
+           모바일 버튼 레이아웃 수정 지점 (1)
+        ======================================== */
+        .card-actions {
+            display: flex; /* grid -> flex 변경 */
+            /* grid-template-columns: repeat(4, 1fr); 제거 */
+            gap: 0.625rem;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.375rem;
+            padding: 0.875rem 0.375rem;
+            background: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s var(--transition);
+            font-weight: 700;
+            min-height: 80px;
+            
+            flex: 1; /* 자식 요소가 꽉 차도록 flex: 1 추가 */
+        }
+        /* ========================================
+           (수정 완료)
+        ======================================== */
+        
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        
+        .action-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        
+        .action-label {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        /* ========== Loading ========== */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            gap: 2rem;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--bg-tertiary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        /* ========== Empty/Error States ========== */
+        .empty-state,
+        .error-state {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 2px dashed var(--border);
+        }
+        
+        .state-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .state-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .state-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .error-state {
+            background: #FEF2F2;
+            border-color: #FCA5A5;
+        }
+        
+        .error-state .state-title {
+            color: var(--error);
+        }
+        
+        /* ========== Table View ========== */
+        .table-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(var(--shadow-color), 0.08);
+        }
+        
+        .business-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .business-table thead {
+            background: var(--bg-tertiary);
+        }
+        
+        .business-table th {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .business-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9375rem;
+        }
+        
+        .business-table tbody tr {
+            transition: background 0.2s var(--transition);
+        }
+        
+        .business-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .table-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.1);
+        }
+        
+        .table-name {
+            font-weight: 800;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .table-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .table-action-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s var(--transition);
+        }
+        
+        .table-action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* ========== Pagination ========== */
+        .pagination-section {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .items-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .items-select {
+            padding: 0.625rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 700;
+            background: var(--bg-primary);
+            cursor: pointer;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .page-btn {
+            min-width: 48px;
+            height: 48px;
+            padding: 0 1rem;
+            border: 2px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s var(--transition);
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .page-btn[aria-current="page"] {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .page-ellipsis {
+            padding: 0 0.5rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* ========== Location Notice ========== */
+        .location-notice {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: #EFF6FF;
+            border: 2px solid #BFDBFE;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            color: #1E40AF;
+        }
+
+        .location-notice-text {
+            flex: 1;
+            font-weight: 600;
+            padding-right: 1rem;
+        }
+        
+        .location-notice.success {
+            background: #F0FDF4;
+            border-color: #86EFAC;
+            color: #166534;
+        }
+        
+        .location-notice.error {
+            background: #FEF2F2;
+            border-color: #FCA5A5;
+            color: #991B1B;
+        }
+        
+        .location-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            margin-left: auto;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s var(--transition);
+        }
+        
+        .location-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* ========== Responsive ========== */
+        @media (max-width: 1024px) {
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto; 
+                padding: 5rem 0 8rem 0; 
+            }
+            
+            .hero-content {
+                padding: 0 1.5rem; 
+            }
+
+            .hero-badge {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero h1 {
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 2.5rem;
+            }
+            
+            .hero-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .stat-label {
+                font-size: 0.8125rem; 
+                display: block;
+            }
+            
+            .search-card {
+                padding: 1.5rem;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .results-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .view-toggle {
+                display: none;
+            }
+            
+            .table-container {
+                display: none;
+            }
+            
+            /* ========================================
+               모바일 버튼 레이아웃 수정 지점 (2)
+            ======================================== */
+            .card-actions {
+                /* grid-template-columns: repeat(2, 1fr); 제거 */
+                /* flex로 변경된 기본 스타일을 따름 */
+                gap: 0.75rem;
+            }
+            /* ========================================
+               (수정 완료)
+            ======================================== */
+            
+            .action-btn {
+                min-height: 70px;
+                /* flex: 1; 은 기본 스타일에서 상속받음 */
+            }
+
+            .location-notice {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.25rem;
+                padding: 1.5rem;
+            }
+
+            .location-notice-text {
+                padding-right: 0;
+                line-height: 1.5;
+            }
+
+            .location-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+                font-size: 1rem;
+                margin-left: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                 padding-top: 4rem;
+            }
+            
+            .stat-number {
+                font-size: 1.875rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .search-input {
+                padding: 1rem 1rem 1rem 3.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* ========== Utilities ========== */
+        .hidden {
+            display: none !important;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="sr-only">본문으로 바로가기</a>
+    
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                전 세계 어디서나
+            </div>
+            <h1>🌏 한인 업체 검색</h1>
+            <p class="hero-subtitle">국가, 도시, 업종별로 쉽게 찾아보세요</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="total-businesses">-</span>
+                    <span class="stat-label">등록 업체</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="total-countries">-</span>
+                    <span class="stat-label">국가</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="total-cities">-</span>
+                    <span class="stat-label">도시</span>
+                </div>
+            </div>
+        </div>
+        <svg class="hero-wave" viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,40L80,42C160,44,320,48,480,48C640,48,800,44,960,42C1120,40,1280,40,1360,40L1440,40L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z" fill="#F8FAFC"/>
+        </svg>
+    </header>
+    
+    <main class="container" id="main">
+        <section class="search-card">
+            <div id="location-notice" class="location-notice hidden"></div>
+            
+            <div class="search-header">
+                <div class="search-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </div>
+                <h2 class="search-title">업체 검색</h2>
+            </div>
+            
+            <div class="search-input-group">
+                <svg class="search-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="search-input"
+                    placeholder="업체명, 주소, 특징으로 검색..."
+                    autocomplete="off"
+                />
+            </div>
+            
+            <div class="filters-grid">
+                <div class="filter-item">
+                    <label for="country-select" class="filter-label">국가</label>
+                    <select id="country-select" class="filter-select">
+                        <option value="">전체 국가</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="city-select" class="filter-label">도시</label>
+                    <select id="city-select" class="filter-select" disabled>
+                        <option value="">국가를 먼저 선택하세요</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="sort-select" class="filter-label">정렬</label>
+                    <select id="sort-select" class="filter-select">
+                        <option value="rating">평점 높은순</option>
+                        <option value="reviews">리뷰 많은순</option>
+                        <option value="distance">가까운순</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="category-header">
+                <h3 class="category-title">업종 선택</h3>
+            </div>
+            <div class="category-list" id="category-list"></div>
+        </section>
+        
+        <div class="results-bar">
+            <div class="results-info">
+                <div class="results-text" id="results-text">검색 결과 <strong>0</strong>개</div>
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn" id="card-view-btn" aria-pressed="true">카드</button>
+                <button class="view-btn" id="table-view-btn" aria-pressed="false">테이블</button>
+            </div>
+        </div>
+        
+        <div id="results-container"></div>
+        
+        <div id="pagination-section"></div>
+    </main>
+    
+    <script>
+    (function() {
+        'use strict';
+        
+        // SVG Icons
+        const ICONS = {
+            phone: '<svg class="icon action-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+            map: '<svg class="icon action-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            email: '<svg class="icon action-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+            web: '<svg class="icon action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+            location: '<svg class="icon detail-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            clock: '<svg class="icon detail-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+            phoneDetail: '<svg class="icon detail-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+            distance: '<svg class="icon" style="width:16px; height:16px; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+        };
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function validateInput(value, maxLength = 100) {
+            if (typeof value !== 'string') return false;
+            if (value.length > maxLength) return false;
+            return !/<script|javascript:|onerror=|onclick=/i.test(value);
+        }
+        
+        function smoothScroll(element) {
+            if (!element) return;
+            const offset = element.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+        
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) ** 2 +
+                        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(dLon / 2) ** 2;
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+        
+        function formatDistance(distance) {
+            if (distance < 1) return `${Math.round(distance * 1000)}m`;
+            if (distance < 10) return `${distance.toFixed(1)}km`;
+            return `${Math.round(distance)}km`;
+        }
+        
+        let businessData = [];
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwfoOIhOrEYOoDoAAtHT3Gv5Uq12SiZT_sOIZtfECTRK09da6opZGKqRBXxw-H6rd85Ag/exec';
+        
+        async function fetchData() {
+            try {
+                const res = await fetch(GAS_URL);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                return data;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                throw error;
+            }
+        }
+        
+        const state = {
+            currentView: 'card',
+            filteredData: [],
+            currentPage: 1,
+            itemsPerPage: 12,
+            selectedCategories: new Set(['전체']),
+            searchQuery: '',
+            selectedCountry: '',
+            selectedCity: '',
+            sortBy: 'rating',
+            userLocation: null,
+            isLoading: false,
+            error: null
+        };
+        
+        const $ = {
+            searchInput: document.getElementById('search-input'),
+            countrySelect: document.getElementById('country-select'),
+            citySelect: document.getElementById('city-select'),
+            sortSelect: document.getElementById('sort-select'),
+            categoryList: document.getElementById('category-list'),
+            cardViewBtn: document.getElementById('card-view-btn'),
+            tableViewBtn: document.getElementById('table-view-btn'),
+            resultsContainer: document.getElementById('results-container'),
+            resultsText: document.getElementById('results-text'),
+            paginationSection: document.getElementById('pagination-section'),
+            locationNotice: document.getElementById('location-notice'),
+            totalBusinesses: document.getElementById('total-businesses'),
+            totalCountries: document.getElementById('total-countries'),
+            totalCities: document.getElementById('total-cities')
+        };
+        
+        let searchTimeout = null;
+        
+        async function init() {
+            try {
+                state.isLoading = true;
+                renderResults();
+                
+                businessData = await fetchData();
+                state.filteredData = [...businessData];
+                state.isLoading = false;
+                
+                updateStats();
+                populateCountries();
+                populateCategories();
+                setupEvents();
+                getUserLocation();
+                
+                renderResults();
+                renderPagination();
+                updateResultCount();
+                initLazyLoading();
+            } catch (error) {
+                state.isLoading = false;
+                state.error = '데이터를 불러오는 데 실패했습니다.';
+                renderResults();
+            }
+        }
+        
+        function updateStats() {
+            const countries = new Set(businessData.map(b => b.country));
+            const cities = new Set(businessData.map(b => b.city));
+            
+            animateNumber($.totalBusinesses, businessData.length);
+            animateNumber($.totalCountries, countries.size);
+            animateNumber($.totalCities, cities.size);
+        }
+        
+        function animateNumber(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        }
+
+        function showLocationNotice(msg, type) {
+            let textSpan = $.locationNotice.querySelector('.location-notice-text');
+            
+            if (!textSpan) {
+                textSpan = document.createElement('span');
+                textSpan.className = 'location-notice-text';
+                const btn = $.locationNotice.querySelector('.location-btn');
+                if (btn) {
+                    $.locationNotice.insertBefore(textSpan, btn);
+                } else {
+                    $.locationNotice.appendChild(textSpan);
+                }
+            }
+            
+            textSpan.textContent = msg;
+            
+            $.locationNotice.className = `location-notice ${type}`;
+            $.locationNotice.classList.remove('hidden');
+        }
+
+        function getUserLocation() {
+            if (!navigator.geolocation) {
+                showLocationNotice('위치 서비스를 지원하지 않습니다.', 'error');
+                disableDistanceSort();
+                return;
+            }
+            showLocationNotice('💡 거리순 정렬을 원하시면 아래 버튼을 클릭하세요.', 'info');
+            createLocationButton();
+            disableDistanceSort();
+        }
+        
+        function createLocationButton() {
+            const btn = document.createElement('button');
+            btn.className = 'location-btn';
+            btn.innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24" style="width:18px; height:18px; stroke-width: 2.5; flex-shrink: 0;">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>내 위치 사용</span>
+            `;
+            btn.addEventListener('click', requestLocation);
+            $.locationNotice.appendChild(btn);
+        }
+        
+        function requestLocation() {
+            showLocationNotice('📍 위치 정보를 가져오는 중...', 'info');
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    state.userLocation = {
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude
+                    };
+                    businessData.forEach(b => {
+                        b.distance = calculateDistance(
+                            state.userLocation.latitude,
+                            state.userLocation.longitude,
+                            b.latitude,
+                            b.longitude
+                        );
+                    });
+                    showLocationNotice('✅ 위치 정보를 가져왔습니다!', 'success');
+                    enableDistanceSort();
+                    if (state.sortBy === 'distance') handleFilterChange();
+
+                    const btn = $.locationNotice.querySelector('.location-btn');
+                    if (btn) btn.classList.add('hidden');
+
+                    setTimeout(() => $.locationNotice.classList.add('hidden'), 3000);
+                },
+                () => {
+                    showLocationNotice('⚠️ 위치 정보를 가져올 수 없습니다.', 'error');
+                    if (state.sortBy === 'distance') {
+                        state.sortBy = 'rating';
+                        $.sortSelect.value = 'rating';
+                        handleFilterChange();
+                    }
+                }
+            );
+        }
+        
+        function disableDistanceSort() {
+            const opt = $.sortSelect.querySelector('option[value="distance"]');
+            if (opt) {
+                opt.disabled = true;
+                opt.textContent = '가까운순 (위치 필요)';
+            }
+        }
+        
+        function enableDistanceSort() {
+            const opt = $.sortSelect.querySelector('option[value="distance"]');
+            if (opt) {
+                opt.disabled = false;
+                opt.textContent = '가까운순';
+            }
+        }
+        
+        function populateCountries() {
+            const countries = [...new Set(businessData.map(b => b.country))].sort();
+            $.countrySelect.innerHTML = '<option value="">전체 국가</option>';
+            countries.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = opt.textContent = c;
+                $.countrySelect.appendChild(opt);
+            });
+        }
+        
+        function populateCities(country) {
+            if (!country) {
+                $.citySelect.innerHTML = '<option value="">국가를 먼저 선택하세요</option>';
+                $.citySelect.disabled = true;
+                return;
+            }
+            const cities = [...new Set(businessData.filter(b => b.country === country).map(b => b.city))].sort();
+            $.citySelect.innerHTML = '<option value="">전체 도시</option>';
+            cities.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = opt.textContent = c;
+                $.citySelect.appendChild(opt);
+            });
+            $.citySelect.disabled = false;
+        }
+        
+        function populateCategories() {
+            const categories = new Set();
+            businessData.forEach(b => b.services.forEach(s => categories.add(s)));
+            const sorted = ['전체', ...Array.from(categories).sort()];
+            
+            $.categoryList.innerHTML = '';
+            sorted.forEach(cat => {
+                const chip = document.createElement('button');
+                chip.className = cat === '전체' ? 'category-chip all' : 'category-chip';
+                chip.setAttribute('role', 'checkbox');
+                chip.setAttribute('aria-checked', cat === '전체' ? 'true' : 'false');
+                chip.dataset.category = cat;
+                chip.textContent = cat;
+                chip.addEventListener('click', () => handleCategoryClick(cat));
+                $.categoryList.appendChild(chip);
+            });
+        }
+        
+        function setupEvents() {
+            $.searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    if (validateInput(e.target.value, 200)) {
+                        state.searchQuery = e.target.value.trim();
+                        handleFilterChange();
+                    }
+                }, 300);
+            });
+            
+            $.countrySelect.addEventListener('change', (e) => {
+                state.selectedCountry = e.target.value;
+                state.selectedCity = '';
+                $.citySelect.value = '';
+                populateCities(e.target.value);
+                handleFilterChange();
+            });
+            
+            $.citySelect.addEventListener('change', (e) => {
+                state.selectedCity = e.target.value;
+                handleFilterChange();
+            });
+            
+            $.sortSelect.addEventListener('change', (e) => {
+                state.sortBy = e.target.value;
+                handleFilterChange();
+            });
+            
+            $.cardViewBtn.addEventListener('click', () => switchView('card'));
+            $.tableViewBtn.addEventListener('click', () => switchView('table'));
+        }
+        
+        function handleCategoryClick(category) {
+            if (category === '전체') {
+                state.selectedCategories.clear();
+                state.selectedCategories.add('전체');
+            } else {
+                state.selectedCategories.delete('전체');
+                if (state.selectedCategories.has(category)) {
+                    state.selectedCategories.delete(category);
+                    if (state.selectedCategories.size === 0) {
+                        state.selectedCategories.add('전체');
+                    }
+                } else {
+                    state.selectedCategories.add(category);
+                }
+            }
+            updateChipStates();
+            handleFilterChange();
+        }
+        
+        function updateChipStates() {
+            $.categoryList.querySelectorAll('.category-chip').forEach(chip => {
+                const isSelected = state.selectedCategories.has(chip.dataset.category);
+                chip.setAttribute('aria-checked', isSelected);
+            });
+        }
+        
+        function handleFilterChange() {
+            state.currentPage = 1;
+            applyFilters();
+            applySorting();
+            renderResults();
+            renderPagination();
+            updateResultCount();
+        }
+        
+        function applyFilters() {
+            state.filteredData = businessData.filter(b => {
+                if (state.searchQuery) {
+                    const q = state.searchQuery.toLowerCase();
+                    
+                    if (![b.businessName, b.address, b.feature].some(f => String(f).toLowerCase().includes(q))) {
+                        return false;
+                    }
+                }
+                if (state.selectedCountry && b.country !== state.selectedCountry) return false;
+                if (state.selectedCity && b.city !== state.selectedCity) return false;
+                if (!state.selectedCategories.has('전체')) {
+                    if (!b.services.some(s => state.selectedCategories.has(s))) return false;
+                }
+                return true;
+            });
+        }
+        
+        function applySorting() {
+            state.filteredData.sort((a, b) => {
+                switch (state.sortBy) {
+                    case 'rating': return b.rating - a.rating;
+                    case 'reviews': return b.reviewCount - a.reviewCount;
+                    case 'distance': return (a.distance || 9999) - (b.distance || 9999);
+                    default: return 0;
+                }
+            });
+        }
+        
+        function switchView(view) {
+            state.currentView = view;
+            $.cardViewBtn.setAttribute('aria-pressed', view === 'card');
+            $.tableViewBtn.setAttribute('aria-pressed', view === 'table');
+            renderResults();
+        }
+        
+        function renderResults() {
+            $.resultsContainer.innerHTML = '';
+            
+            if (state.isLoading) {
+                $.resultsContainer.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <div class="loading-text">데이터를 불러오는 중...</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (state.error) {
+                $.resultsContainer.innerHTML = `
+                    <div class="error-state">
+                        <div class="state-icon">⚠️</div>
+                        <h3 class="state-title">오류 발생</h3>
+                        <p class="state-description">${escapeHtml(state.error)}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (state.filteredData.length === 0) {
+                $.resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="state-icon">🔍</div>
+                        <h3 class="state-title">검색 결과가 없습니다</h3>
+                        <p class="state-description">다른 검색 조건을 시도해보세요</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const start = (state.currentPage - 1) * state.itemsPerPage;
+            const end = start + state.itemsPerPage;
+            const pageData = state.filteredData.slice(start, end);
+            
+            if (state.currentView === 'card') {
+                renderCardView(pageData);
+            } else {
+                renderTableView(pageData);
+            }
+            
+            if (state.currentPage > 1) smoothScroll($.resultsContainer);
+        }
+        
+        function renderCardView(data) {
+            const grid = document.createElement('div');
+            grid.className = 'card-grid';
+            
+            data.forEach((b, idx) => {
+                const card = document.createElement('article');
+                card.className = 'business-card';
+                card.style.animationDelay = `${idx * 0.05}s`;
+                
+                const imgAttr = state.currentPage === 1 
+                    ? `src="${escapeHtml(b.image)}"` 
+                    : `data-src="${escapeHtml(b.image)}" loading="lazy"`;
+                
+                const distance = b.distance && state.userLocation
+                    ? `<div class="card-distance">${ICONS.distance} ${formatDistance(b.distance)}</div>`
+                    : '';
+                
+                const tags = b.services.map(s => 
+                    `<span class="tag">${escapeHtml(s)}</span>`
+                ).join('');
+                
+                const email = b.email 
+                    ? `<a href="mailto:${escapeHtml(b.email)}" class="action-btn">${ICONS.email}<span class="action-label">이메일</span></a>`
+                    : '';
+                
+                const website = b.website
+                    ? `<a href="https://${escapeHtml(b.website)}" target="_blank" rel="noopener" class="action-btn">${ICONS.web}<span class="action-label">웹사이트</span></a>`
+                    : '';
+                
+                card.innerHTML = `
+                    <div class="card-image-container">
+                        <img ${imgAttr} alt="${escapeHtml(b.businessName)}" class="card-image">
+                        <div class="card-badge">
+                            <span class="badge-star">★</span>
+                            <span class="badge-rating">${b.rating}</span>
+                            <span class="badge-reviews">(${b.reviewCount})</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${escapeHtml(b.businessName)}</h3>
+                        <div class="card-tags">${tags}</div>
+                        <p class="card-description">${escapeHtml(b.feature)}</p>
+                        ${distance}
+                        <div class="card-details">
+                            <div class="detail-item">
+                                ${ICONS.location}
+                                <span class="detail-text">${escapeHtml(b.address)}</span>
+                            </div>
+                            <div class="detail-item">
+                                ${ICONS.clock}
+                                <span class="detail-text">${escapeHtml(b.hours)}</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <a href="tel:${escapeHtml(b.phone)}" class="action-btn">
+                                ${ICONS.phone}
+                                <span class="action-label">전화</span>
+                            </a>
+                            <a href="${escapeHtml(b.googleMapsUrl)}" target="_blank" rel="noopener" class="action-btn">
+                                ${ICONS.map}
+                                <span class="action-label">지도</span>
+                            </a>
+                            ${email}
+                            ${website}
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            $.resultsContainer.appendChild(grid);
+        }
+        
+        function renderTableView(data) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'table-container';
+            
+            const table = document.createElement('table');
+            table.className = 'business-table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>이미지</th>
+                        <th>업체명</th>
+                        <th>평점</th>
+                        <th>위치</th>
+                        <th>카테고리</th>
+                        <th>연락처</th>
+                        <th>액션</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            
+            const tbody = table.querySelector('tbody');
+            data.forEach(b => {
+                const row = document.createElement('tr');
+                const imgAttr = state.currentPage === 1 
+                    ? `src="${escapeHtml(b.image)}"` 
+                    : `data-src="${escapeHtml(b.image)}" loading="lazy"`;
+                const tags = b.services.map(s => `<span class="tag">${escapeHtml(s)}</span>`).join('');
+                const email = b.email ? `<a href="mailto:${escapeHtml(b.email)}" class="table-action-btn" title="이메일">${ICONS.email}</a>` : '';
+                const website = b.website ? `<a href="https://post.naver.com/${escapeHtml(b.website)}" target="_blank" rel="noopener" class="table-action-btn" title="웹사이트">${ICONS.web}</a>` : '';
+                
+                row.innerHTML = `
+                    <td><img ${imgAttr} alt="${escapeHtml(b.businessName)}" class="table-image"></td>
+                    <td><div class="table-name">${escapeHtml(b.businessName)}</div></td>
+                    <td>
+                        <div class="table-rating">
+                            <span style="color: #FFB800;">★</span>
+                            <strong>${b.rating}</strong>
+                            <span style="color: var(--text-tertiary);">(${b.reviewCount})</span>
+                        </div>
+                    </td>
+                    <td>${escapeHtml(b.city)}, ${escapeHtml(b.country)}</td>
+                    <td><div class="card-tags">${tags}</div></td>
+                    <td>${escapeHtml(b.phone)}</td>
+                    <td>
+                        <div class="table-actions">
+                            <a href="tel:${escapeHtml(b.phone)}" class="table-action-btn" title="전화">${ICONS.phone}</a>
+                            <a href="${escapeHtml(b.googleMapsUrl)}" target="_blank" rel="noopener" class="table-action-btn" title="지도">${ICONS.map}</a>
+                            ${email}
+                            ${website}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            wrapper.appendChild(table);
+            $.resultsContainer.appendChild(wrapper);
+        }
+        
+        function updateResultCount() {
+            const count = state.filteredData.length;
+            const selectedCount = state.selectedCategories.size - (state.selectedCategories.has('전체') ? 1 : 0);
+            const badge = selectedCount > 0 ? `<span class="filter-count">${selectedCount}</span>` : '';
+            $.resultsText.innerHTML = `검색 결과 <strong>${count}</strong>개 ${badge}`;
+        }
+        
+        function renderPagination() {
+            if (state.filteredData.length === 0) {
+                $.paginationSection.innerHTML = '';
+                return;
+            }
+            
+            const totalPages = Math.ceil(state.filteredData.length / state.itemsPerPage);
+            if (totalPages <= 1) {
+                $.paginationSection.innerHTML = '';
+                return;
+            }
+            
+            const section = document.createElement('div');
+            section.className = 'pagination-section';
+            
+            section.innerHTML = `
+                <div class="items-selector">
+                    <span>페이지당</span>
+                    <select id="items-select" class="items-select">
+                        <option value="12" ${state.itemsPerPage === 12 ? 'selected' : ''}>12개</option>
+                        <option value="20" ${state.itemsPerPage === 20 ? 'selected' : ''}>20개</option>
+                        <option value="50" ${state.itemsPerPage === 50 ? 'selected' : ''}>50개</option>
+                    </select>
+                </div>
+                <div class="pagination" id="pagination"></div>
+            `;
+            
+            const pagination = section.querySelector('#pagination');
+            
+            const prevBtn = createPageBtn('‹', state.currentPage - 1, state.currentPage === 1);
+            pagination.appendChild(prevBtn);
+            
+            getPageNumbers(state.currentPage, totalPages).forEach(page => {
+                if (page === '...') {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'page-ellipsis';
+                    ellipsis.textContent = '...';
+                    pagination.appendChild(ellipsis);
+                } else {
+                    pagination.appendChild(createPageBtn(page, page, false, page === state.currentPage));
+                }
+            });
+            
+            const nextBtn = createPageBtn('›', state.currentPage + 1, state.currentPage === totalPages);
+            pagination.appendChild(nextBtn);
+            
+            $.paginationSection.innerHTML = '';
+            $.paginationSection.appendChild(section);
+            
+            document.getElementById('items-select').addEventListener('change', (e) => {
+                state.itemsPerPage = parseInt(e.target.value);
+                state.currentPage = 1;
+                renderResults();
+                renderPagination();
+            });
+        }
+        
+        function createPageBtn(text, page, disabled = false, current = false) {
+            const btn = document.createElement('button');
+            btn.className = 'page-btn';
+            btn.textContent = text;
+            btn.disabled = disabled;
+            if (current) btn.setAttribute('aria-current', 'page');
+            if (!disabled && !current) {
+                btn.addEventListener('click', () => {
+                    state.currentPage = page;
+                    renderResults();
+                    renderPagination();
+                });
+            }
+            return btn;
+        }
+        
+        function getPageNumbers(current, total) {
+            const pages = [];
+            const delta = 2;
+            for (let i = 1; i <= total; i++) {
+                if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+                    pages.push(i);
+                } else if (pages[pages.length - 1] !== '...') {
+                    pages.push('...');
+                }
+            }
+            return pages;
+        }
+        
+        function initLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            loadImage(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { rootMargin: '100px' });
+                
+                new MutationObserver((mutations) => {
+                    mutations.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === 1) {
+                                const images = node.querySelectorAll?.('img[data-src]') || 
+                                                (node.tagName === 'IMG' && node.hasAttribute('data-src') ? [node] : []);
+                                images.forEach(img => observer.observe(img));
+                            }
+                        });
+                    });
+                }).observe($.resultsContainer, { childList: true, subtree: true });
+            }
+        }
+        
+        function loadImage(img) {
+            const src = img.getAttribute('data-src');
+            if (!src) return;
+            
+            const temp = new Image();
+            temp.onload = () => {
+                img.src = src;
+                img.removeAttribute('data-src');
+            };
+            temp.onerror = () => {
+                img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" fill="%2394a3b8" font-size="14"%3E이미지 로드 실패%3C/text%3E%3C/svg%3E';
+            };
+            temp.src = src;
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+</body>
+</html>
